@@ -1,0 +1,47 @@
+version: '3.4'
+
+networks:
+  dev:
+    driver: bridge
+
+services:
+  ayotechtest.api:
+    image: ${DOCKER_REGISTRY-}ayotechtestapi
+    depends_on:
+      -  "ayotechtest.database"
+    container_name: ayotechtestapi
+    build:
+      context: .
+      dockerfile: aYoTechTest.Api\Dockerfile
+    environment:
+      - ConnectionString=host=aytechtestdb;port=5435;database=aYoTechTestDb;username=ayouser;password=ayo@dmin;Pooling=true;
+    networks:
+      - dev
+
+  ayotechtest.apitest:
+    image: ${DOCKER_REGISTRY-}ayotechtestapitest
+    depends_on:
+      -  "ayotechtest.database"
+    container_name: ayotechtestapitest
+    build:
+      context: .
+      dockerfile: aYoTechTest.ApiTest\Dockerfile
+
+  ayotechtest.database:
+    image: postgres:latest
+    container_name: ayotechtestapi
+    environment:
+      - POSTGRES_USER=ayouser
+      - POSTGRES_PASSWORD=ayo@dmin
+      - POSTGRES_DB=aYoTechTestDb
+    ports:
+      - "5432:5432"
+    restart: always     
+    networks:
+      - dev
+    build:
+      context: .
+      dockerfile: aYoTechTest.ApiTest\Dockerfile 
+
+
+

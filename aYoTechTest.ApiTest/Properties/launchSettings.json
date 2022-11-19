@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "aYoTechTest.ApiTest": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
