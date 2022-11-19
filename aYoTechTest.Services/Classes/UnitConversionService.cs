@@ -7,7 +7,6 @@ using aYoTechTest.Models.Entities;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Specialized;
-using System.Text;
 
 namespace aYoTechTest.Services.Classes
 {
@@ -21,13 +20,13 @@ namespace aYoTechTest.Services.Classes
             _context = context;
         }
 
-        public async Task<ServiceActionResult<decimal>> ProcessConvertion(ConvertUnitViewModel data)
+        public async Task<ServiceActionResult<ConvertUnitResponse>> ProcessConvertion(ConvertUnitRequest data)
         {
 
-            ServiceActionResult<decimal> _result = new ServiceActionResult<decimal>(0);
+            ServiceActionResult<ConvertUnitResponse> _result = new ServiceActionResult<ConvertUnitResponse>(default);
 
             if (!data.IsValid)
-                return default(ServiceActionResult<decimal>);
+                return default(ServiceActionResult<ConvertUnitResponse>);
 
 
             if (!(await ValidateIsSupportedConversionType(data)))
@@ -101,15 +100,14 @@ namespace aYoTechTest.Services.Classes
             });
         }
 
-        private async Task<bool> ValidateIsSupportedConversionType(ConvertUnitViewModel data)
+        private async Task<bool> ValidateIsSupportedConversionType(ConvertUnitRequest data)
         {
             SupportedConversion _supportedConversion = await GetSupportedConversionById(data.SupportedConversionId);
             return _supportedConversion != null;
         }
 
-        private async Task<ServiceActionResult<decimal>> ProcessConversion(ConvertUnitViewModel data)
+        private async Task<ServiceActionResult<ConvertUnitResponse>> ProcessConversion(ConvertUnitRequest data)
         {
-            StringBuilder _message = new StringBuilder();
 
             MeasuringUnit _sourceUnit = null;
             MeasuringUnit _targetUnit = null;
@@ -128,15 +126,22 @@ namespace aYoTechTest.Services.Classes
                     break;
                 default:
                     throw new ArgumentOutOfRangeException($"Un-Known Conversion Type {_conversionInfo.ConversionType.ToString()}");
-            }
-
-            _message.AppendLine($"Converting Form {_sourceUnit.UnitOfMeasure} to {_targetUnit.UnitOfMeasure}");
+            }          
 
             decimal _convertedValue = data.UnitValue * _conversionInfo.Multiplier;
 
-            _message.AppendLine($"{data.UnitValue} {_sourceUnit.UnitOfMeasure} to {_targetUnit.UnitOfMeasure} ==> {_convertedValue} {_targetUnit.UnitOfMeasure}");
+            ConvertUnitResponse _result = new ConvertUnitResponse()
+            {
+                Description = $"Converting Form {_sourceUnit.MetricUnitDesc} to {_targetUnit.MetricUnitDesc}   [{_sourceUnit.UnitOfMeasure} to {_targetUnit.UnitOfMeasure}]",
+                SourceUnitMeasure = _sourceUnit.UnitOfMeasure,
+                SourceUnitName = _sourceUnit.MetricUnitDesc,
+                SourceValue = data.UnitValue,
+                ConvertedUnitMeasure = _targetUnit.UnitOfMeasure,
+                ConvertedUnitName = _targetUnit.MetricUnitDesc,
+                ConvertedValue = _convertedValue
+            };            
 
-            return new ServiceActionResult<decimal>(_convertedValue, _message.ToString(), true);
+            return new ServiceActionResult<ConvertUnitResponse>(_result, "Success", true);
         }
 
         private async Task<SupportedConversion> GetSupportedConversion(int sourceUnitId, int targetUnitId)

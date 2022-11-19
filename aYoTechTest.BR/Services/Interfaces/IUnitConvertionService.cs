@@ -6,7 +6,7 @@ namespace aYoTechTest.BR.Services.Interfaces
 {
     public interface IUnitConvertionService
     {
-        Task<ServiceActionResult<decimal>> ProcessConvertion(ConvertUnitViewModel data);
+        Task<ServiceActionResult<ConvertUnitResponse>> ProcessConvertion(ConvertUnitRequest data);
         Task<IEnumerable<SupportedConversionViewModel>> GetSupportedConversionList();
         Task<IEnumerable<MeasuringUnitViewModel>> GetMeasuringUnitList(NameValueCollection nvcParam = null);
     }

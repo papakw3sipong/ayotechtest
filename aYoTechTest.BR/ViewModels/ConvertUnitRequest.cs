@@ -3,7 +3,7 @@
 
 namespace aYoTechTest.BR.ViewModels
 {
-    public class ConvertUnitViewModel
+    public class ConvertUnitRequest
     {        
         public int SupportedConversionId { get; set; }       
         public decimal UnitValue { get; set; }

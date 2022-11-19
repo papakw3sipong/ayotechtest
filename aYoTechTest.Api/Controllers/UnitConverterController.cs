@@ -69,7 +69,7 @@ namespace aYoTechTest.Api.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> ConvertUnit(ConvertUnitViewModel data)
+        public async Task<IActionResult> ConvertUnit(ConvertUnitRequest data)
         {
             var _result = await _ucService.ProcessConvertion(data);
 
