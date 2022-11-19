@@ -10,6 +10,7 @@ namespace aYoTechTest.Api.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
+    [Authorize]
     public class UnitConverterController : Controller
     {
         private readonly IUnitConvertionService _ucService;
@@ -20,8 +21,7 @@ namespace aYoTechTest.Api.Controllers
         }
 
 
-        [HttpGet]
-        [AllowAnonymous]
+        [HttpGet]       
         public JsonResult Get()
         {
             return new JsonResult(new[] { "Welcome to Unit Conversion Api." });
