@@ -5,6 +5,6 @@ namespace aYoTechTest.BR.Services.Interfaces
     public interface IIdentityUserService
 
     {
-        Task<ApiAuthResponse> AuthenticateUser(ApiAuthRequest model);       
+        Task<ApiAuthResponse> AuthenticateUser(ApiAuthRequest model);
     }
 }

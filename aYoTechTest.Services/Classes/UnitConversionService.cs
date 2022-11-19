@@ -126,7 +126,7 @@ namespace aYoTechTest.Services.Classes
                     break;
                 default:
                     throw new ArgumentOutOfRangeException($"Un-Known Conversion Type {_conversionInfo.ConversionType.ToString()}");
-            }          
+            }
 
             decimal _convertedValue = data.UnitValue * _conversionInfo.Multiplier;
 
@@ -139,7 +139,7 @@ namespace aYoTechTest.Services.Classes
                 ConvertedUnitMeasure = _targetUnit.UnitOfMeasure,
                 ConvertedUnitName = _targetUnit.MetricUnitDesc,
                 ConvertedValue = _convertedValue
-            };            
+            };
 
             return new ServiceActionResult<ConvertUnitResponse>(_result, "Success", true);
         }

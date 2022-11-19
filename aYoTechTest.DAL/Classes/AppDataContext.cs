@@ -10,7 +10,7 @@ namespace aYoTechTest.DAL.Classes
     {
         public readonly DbContextOptions<AppDataContext> _options;
         public readonly ICurrentUserHelper _currentUserInfo;
-        
+
         public AppDataContext(
             DbContextOptions<AppDataContext> options,
             ICurrentUserHelper currentUserInfo
@@ -58,7 +58,7 @@ namespace aYoTechTest.DAL.Classes
                 {
                     var entity = (IEntityBase)entry.Entity;
                     DateTime now = DateTime.Now;
-                   
+
                     if (entry.State == EntityState.Added)
                     {
                         entity.CreatedById = CurrentUserId;

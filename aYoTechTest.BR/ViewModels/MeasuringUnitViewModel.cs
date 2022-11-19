@@ -1,11 +1,4 @@
-﻿using aYoTechTest.BR.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace aYoTechTest.BR.ViewModels
+﻿namespace aYoTechTest.BR.ViewModels
 {
     public class MeasuringUnitViewModel
     {

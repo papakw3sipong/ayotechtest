@@ -24,9 +24,19 @@ namespace aYoTechTest.Services.Classes
             _apiSetting = apiSetting.Value;
         }
 
+        public IdentityUserService(
+           UserManager<aYoTechTestUser> userManager,
+           ApiSetting apiSetting
+       )
+        {
+            _userManager = userManager;
+            _apiSetting = apiSetting;
+        }
+
 
         public async Task<ApiAuthResponse> AuthenticateUser(ApiAuthRequest model)
         {
+
             var _user = await _userManager.FindByNameAsync(model.Username);
 
             if (_user != null)

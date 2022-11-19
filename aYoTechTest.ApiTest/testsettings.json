@@ -1,0 +1,25 @@
+{
+  "ConnectionStrings": {
+    "AyoDbConnection": "Server=localhost;Port=5432;User Id=ayouser;Password=ayo@dmin;Database=aYoTechTestDb"
+  },
+
+  "ApiSetting": {
+    "TokenSecret": "4LhsueRzcFKvoAyNV2PR0QPqQdUIZVqD",
+    "TokenIssuer": "Charles Yeboah Oppong",
+    "TokenAudience": "Charles Yeboah Oppong",
+    "AllowedUserNameChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+    "PasswordLength": 6,
+    "LockoutTimeInMinutes": 15,
+    "AllowdFailedAttempts": 3,
+    "ApiRunMode": "DEVELOPMENT"
+
+  },
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
